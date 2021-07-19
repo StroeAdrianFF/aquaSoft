@@ -32,6 +32,7 @@ songs.forEach(song =>{//applies a function for each element of the array
     }
 })
 
+
 console.log(songs.indexOf('phoenix')) //indexof returns index of specified item
 
 let song = songs.find(s => s.length >4 && s.length < 10) //find item which is part of specified parameters
@@ -44,3 +45,5 @@ console.log(someSongs)
 const firstName = 'adrian'
 const reversedName = firstName.split('').reverse().join('')//split the string then reverse it and join the letters back together
 console.log(reversedName)
+
+
