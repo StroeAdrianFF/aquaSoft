@@ -16,7 +16,14 @@ app.get('/', (req,res)=>{
 })
 
 app.get('/ordered', routes.orderedEmployees ) //get ordered employees
-app.get('/emails', routes.emails)
+app.get('/name', routes.firstName)//get employee by name
+
+app.post('/insertEmpl', routes.addEmployee)
+
+app.put('/update/:id', routes.updateEmpl)
+
+app.delete('/delete/:id', routes.deleteEmpl)
+
 
 app.listen(port, ()=>{//run server
     console.log(`Server pornit la portul ${port} `)

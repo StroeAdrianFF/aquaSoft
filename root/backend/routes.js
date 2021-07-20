@@ -3,7 +3,7 @@ const Employee = require('./models/employee.js')//import model
 
 const orderedEmployees =  async (req,res)=> {
     try {
-        const ordered = await Employee.find({}).sort({salary: -1}) //descending order
+        const ordered = await Employee.find({}).sort({salary: -1}) //sort every employee by their descending salary
         res.json(ordered)
     } catch (error) {
         console.log(`Hopa! Ceva nu merge bine la ordonare: ${error}`)
@@ -12,16 +12,60 @@ const orderedEmployees =  async (req,res)=> {
 }
 
 
-const emails = async (req,res) =>{
+const firstName = async (req,res) =>{
     try {
-        const emails = await Employee.find({email: {$regex:".*@gmail.*"}}) //find employee with gmail address
-        res.json(emails)
+        const firstName = await Employee.findOne({name: 'adrian'}) //find 1 employee by name
+        res.json(firstName)
     } catch (error) {
-        console.log(`Hopa! Ceva nu merge bine la emailuri: ${error}`)
+        console.log(`Hopa! Ceva nu merge bine la nume: ${error}`)
+        return res.json({message: 'Error on retrieving'})
+    }
+}
+
+
+const addEmployee = async (req, res) =>{
+    try {
+      const newEmpl =  new Employee({
+            name: req.body.name,
+            address: req.body.address,
+            email: req.body.email,
+            hire_date: req.body.hire_date,
+            salary: req.body.salary,
+            job_title: req.body.job_title
+    }).save()
+    res.json(newEmpl)
+    } catch (error) {
+        res.json(error) 
+    }
+}
+
+const updateEmpl = async (req,res) => {
+   try {
+    const id = req.params.id
+    const empl = await Employee.findById(id)
+    empl.salary = 200
+    empl.save()
+    res.json(empl)
+   } catch (error) {
+    console.log(`Hopa! Ceva nu merge bine la update: ${error}`)
+    return res.json({message: 'Error on retrieving'})
+   }
+}
+
+const deleteEmpl = async (req,res)=>{
+    try {
+    const id = req.params.id
+    await Employee.findByIdAndDelete(id)
+    return res.json({message: 'A mers!'})
+    } catch (error) {
+        console.log(`Hopa! Ceva nu merge bine la delete: ${error}`)
         return res.json({message: 'Error on retrieving'})
     }
 }
 
 
 exports.orderedEmployees = orderedEmployees
-exports.emails = emails
+exports.firstName = firstName
+exports.addEmployee = addEmployee
+exports.updateEmpl = updateEmpl
+exports.deleteEmpl = deleteEmpl

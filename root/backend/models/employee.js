@@ -2,22 +2,28 @@ const {Schema, model} = require('mongoose')
 
 const employeeSchema = new Schema ({//define an employee
     name:{
-        type: String
+        type: String,
+        required: true
     },
     address:{
-        type: String 
+        type: String,
+        required: true 
     },
     email:{
-        type: String
+        type: String,
+        required: true
     },
     hire_date:{
-        type: Date
+        type: Date,
+        required: true
     },
     salary:{
-        type: Number
+        type: Number,
+        required: true
     },
     job_title:{
-        type: String
+        type: String,
+        required: true
     }
 
 })
