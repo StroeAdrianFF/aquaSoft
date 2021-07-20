@@ -35,20 +35,21 @@ const addEmployee = async (req, res) =>{
     }).save()
     res.json(newEmpl)
     } catch (error) {
-        res.json(error) 
+        console.log(`Hopa! Ceva nu merge bine la inserare: ${error}`)
+        return res.json({message: 'Error on insertion'})
     }
 }
 
 const updateEmpl = async (req,res) => {
-   try {
-    const id = req.params.id
-    const empl = await Employee.findById(id)
-    empl.salary = 200
-    empl.save()
-    res.json(empl)
-   } catch (error) {
+    try {
+        const id = req.params.id
+        const empl = await Employee.findById(id)
+        empl.salary = 200
+        empl.save()
+        res.json(empl)
+    } catch (error) {
     console.log(`Hopa! Ceva nu merge bine la update: ${error}`)
-    return res.json({message: 'Error on retrieving'})
+    return res.json({message: 'Error on updating'})
    }
 }
 
@@ -59,7 +60,7 @@ const deleteEmpl = async (req,res)=>{
     return res.json({message: 'A mers!'})
     } catch (error) {
         console.log(`Hopa! Ceva nu merge bine la delete: ${error}`)
-        return res.json({message: 'Error on retrieving'})
+        return res.json({message: 'Error on deletion'})
     }
 }
 
