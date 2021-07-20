@@ -9,7 +9,7 @@ app.use(express.json({extended: false}))//activate body parser */
 app.use(cors());
 connectToDB();//connect to db
 
-const port = process.env.port || 5000
+const port = 5000
 
 app.get('/', (req,res)=>{
     res.send('I was expecting you!')
