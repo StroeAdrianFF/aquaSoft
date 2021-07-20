@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const URI = 'mongodb+srv://adrian:adrian@cluster0.2gzfu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' //uri to connect to db
+const URI = 'mongodb+srv://adrian:adrian@cluster0.2gzfu.mongodb.net/internship?retryWrites=true&w=majority' //uri to connect to db
 
 const connection = async () =>{
     try {
