@@ -2,9 +2,9 @@ const connectToDB = require('./db.js') //import our connection from the other fi
 const express = require('express')
 const cors = require('cors') //allows us to make requests from a website to another
 const routes = require('./routes')
+
+
 const app = express()
-
-
 app.use(express.json({extended: false}))//activate body parser */
 app.use(cors());
 connectToDB();//connect to db

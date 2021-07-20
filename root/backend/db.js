@@ -9,7 +9,7 @@ const connection = async () =>{
             useCreateIndex: true,
             useFindAndModify: false
         })
-        console.log('Suntem conectati!')
+        console.log('Suntem conectati la db!')
     } catch (error) {
         console.log(`Eroare: ${error}`) //print error if error
         process.exit(1)
