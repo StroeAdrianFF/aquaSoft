@@ -14,7 +14,7 @@ const orderedEmployees =  async (req,res)=> {
 
 const firstName = async (req,res) =>{
     try {
-        const firstName = await Employee.findOne({name: 'adrian'}) //find 1 employee by name
+        const firstName = await Employee.findOne({name: `${req.params.name}`}) //find 1 employee by name
         res.json(firstName)
     } catch (error) {
         console.log(`Hopa! Ceva nu merge bine la nume: ${error}`)

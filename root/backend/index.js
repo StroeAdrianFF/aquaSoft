@@ -16,7 +16,7 @@ app.get('/', (req,res)=>{
 })
 
 app.get('/ordered', routes.orderedEmployees ) //get ordered employees
-app.get('/name', routes.firstName)//get employee by name
+app.get('/name/:name', routes.firstName)//get employee by name
 
 app.post('/insertEmpl', routes.addEmployee)
 
