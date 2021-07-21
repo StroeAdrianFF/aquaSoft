@@ -44,7 +44,7 @@ const updateEmpl = async (req,res) => {
     try {
         const id = req.params.id
         const empl = await Employee.findById(id)
-        empl.salary = 200
+        empl.salary = req.body.salary
         empl.save()
         res.json(empl)
     } catch (error) {
