@@ -39,7 +39,7 @@ const allProjects = async (req,res)=>{
 
 const getEmplWithProject = async (req,res)=>{
 
-    const client = new MongoClient(URI)
+    const client = new MongoClient(URI,{ useUnifiedTopology: true })
 
     try {
         await client.connect()
