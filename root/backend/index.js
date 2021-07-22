@@ -17,12 +17,18 @@ app.get('/', (req,res)=>{
 
 app.get('/ordered', routes.orderedEmployees ) //get ordered employees
 app.get('/name/:name', routes.firstName)//get employee by name
+app.get('/projects', routes.allProjects)
+
+app.get('/emplAndProject', routes.getEmplWithProject)
 
 app.post('/insertEmpl', routes.addEmployee)
+app.post('/insertProject', routes.addProject)
 
-app.put('/update/:id', routes.updateEmpl)
+app.put('/updateEmpl/:id', routes.updateEmpl)
+app.put('/updateProject/:id', routes.updateProject)
 
 app.delete('/delete/:id', routes.deleteEmpl)
+app.delete('/deleteProject/:id', routes.deleteProject)
 
 
 app.listen(port, ()=>{//run server
