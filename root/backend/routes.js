@@ -59,7 +59,7 @@ const getEmplWithProject = async (req,res)=>{
         console.log(`Proiectele nu au putut fi gasite: ${error}`)
         return res.json({message: 'Error on returning projects for employee'})
     }
-    client.close()
+  client.close()
 }
 
 
