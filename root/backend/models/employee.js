@@ -27,7 +27,7 @@ const employeeSchema = new Schema ({//define an employee
     },
     project_id:{
         type: Schema.Types.ObjectId,
-        required: false
+        required: true
     }
 
 })
