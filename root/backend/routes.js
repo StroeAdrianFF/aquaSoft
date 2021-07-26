@@ -60,8 +60,9 @@ const getEmplWithProject = async (req,res)=>{
         return res.json({message: 'Error on returning projects for employee'})
     }
   client.close()
-}
-
+} 
+//poti returna si statusul la return
+//gitignore BAGA NODE MODULES IN EL!
 
 
 
