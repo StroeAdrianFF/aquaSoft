@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Provider store={store}>
+        <Provider store={store}> {/* connects the app to the store */}
           <NavBar/>
           <Switch>
             <Route exact path="/" component={MainPage}><Redirect to="/angajati"/></Route>
