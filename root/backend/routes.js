@@ -62,7 +62,7 @@ const getEmplWithProject = async (req,res)=>{
   client.close()
 } 
 //poti returna si statusul la return
-//gitignore BAGA NODE MODULES IN EL!
+
 
 
 
