@@ -69,7 +69,7 @@ const addEmployee = async (req, res) => {
             name: req.body.name,
             address: req.body.address,
             email: req.body.email,
-            hire_date: req.body.hire_date,
+            hire_date: Date.parse(req.body.hire_date),
             salary: req.body.salary,
             job_title: req.body.job_title
         }).save();
@@ -84,8 +84,8 @@ const addProject = async (req, res) => {
     try {
         const newProject = new Project({
             project_name: req.body.project_name,
-            start_date: req.body.start_date,
-            planned_end_date: req.body.planned_end_date,
+            start_date: Date.parse(req.body.start_date),
+            planned_end_date: Date.parse(req.body.planned_end_date),
             description: req.body.description,
             project_code: req.body.project_code
         }).save();
