@@ -1,0 +1,36 @@
+.bg {
+    background-color: rgb(168, 164, 164);
+    height: 94vh;
+}
+
+.extraTableCss {
+    margin: 150px auto 50px auto;
+    width: 80vw;
+    border-radius: 50px;
+}
+
+.containerClass {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 50px;
+}
+
+.formData {
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.formData label,
+.formData input {
+    margin: 5px 0px;
+}
+
+.formData input {
+    border-radius: 5px;
+}
+
+.toast {
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+}
