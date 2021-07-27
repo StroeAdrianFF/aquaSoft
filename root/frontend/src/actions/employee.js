@@ -8,6 +8,7 @@ export const getEmployees = () => async (dispatch) => {
             type: 'GET_EMPLOYEES',
             payload: res.data
         });
+        return res.data;
     } catch (error) {
         console.log(error);
     }
