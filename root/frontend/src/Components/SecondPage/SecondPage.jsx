@@ -53,23 +53,23 @@ const SecondPage = (props) => {
 
     const insertValidator = (data) => {
         let isValid = true;
-        if (data.project_name.length < 5) {
+        if (data?.project_name?.length < 5) {
             setShowToast(!showToast);
             setMessage('Numele proiectului trebuie sa aiba o lungime de minimum 5 caractere! ');
             isValid = false;
-        } else if (!Date.parse(`${data.start_date}`)) {
+        } else if (!Date.parse(`${data?.start_date}`)) {
             setShowToast(!showToast);
             setMessage('Data de incepere introdusa nu este corecta');
             isValid = false;
-        } else if (!Date.parse(`${data.planned_end_date}`)) {
+        } else if (!Date.parse(`${data?.planned_end_date}`)) {
             setShowToast(!showToast);
             setMessage('Data de finalizare introdusa nu este corecta');
             isValid = false;
-        } else if (data.description.length < 10) {
+        } else if (data?.description?.length < 10) {
             setShowToast(!showToast);
             setMessage('Descrierea trebuie sa aiba o lungime de minimum 10 caractere');
             isValid = false;
-        } else if (data.project_code < 5) {
+        } else if (data?.project_code < 5) {
             setShowToast(!showToast);
             isValid = false;
             setMessage('Codul proiectului trebuie sa aiba o lungime minima de 5 caractere');

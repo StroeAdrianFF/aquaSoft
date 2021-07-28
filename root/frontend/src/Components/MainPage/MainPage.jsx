@@ -53,31 +53,32 @@ const MainPage = (props) => {
 
     const insertValidator = (data) => {
         let isValid = true;
-        if (data.name.length < 3) {
+        if (data?.name?.length < 3) {
             setShowToast(!showToast);
             setMessage('Numele trebuie sa contina minimum 3 caractere');
             isValid = false;
-        } else if (data.address.length < 5) {
+        } else if (data?.address?.length < 5) {
             setShowToast(!showToast);
             setMessage('Adresa trebuie sa contina minimum 5');
             isValid = false;
-        } else if (data.email.length < 8 || !data.email.includes('@') || !data.email.includes('.')) {
+        } else if (data?.email?.length < 8 || !data?.email?.includes('@') || !data?.email?.includes('.')) {
             setShowToast(!showToast);
             setMessage(`Email-ul trebuie sa contina minimum 8 caractere si sa aiba in compozitie '@' si '.'`);
             isValid = false;
-        } else if (!Date.parse(`${data.hire_date}`)) {
+        } else if (!Date.parse(`${data?.hire_date}`)) {
             setShowToast(!showToast);
             setMessage('Data nu are formatul corect');
             isValid = false;
-        } else if (isNaN(data.salary)) {
+        } else if (isNaN(data?.salary)) {
             setShowToast(!showToast);
             isValid = false;
             setMessage('Salariul nu este un numar');
-        } else if (data.job_title.length < 3) {
+        } else if (data?.job_title?.length < 3) {
             setShowToast(!showToast);
             isValid = false;
             setMessage('Titlul job-ului trebuie sa contina minimum 3 caractere');
         }
+        console.log(data);
         return isValid;
     };
 
