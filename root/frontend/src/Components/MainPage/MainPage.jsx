@@ -273,4 +273,4 @@ export default connect(mapStateToProps, {
     addEmployee,
     updateEmployee,
     deleteEmployee
-})(MainPage); //connect connects the component to the redux store
+})(MainPage); //connect connects the component to the redux store to get all the data that it needs
