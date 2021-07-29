@@ -1,0 +1,18 @@
+.bg {
+    background-color: gray;
+    height: 100vh;
+}
+.modal {
+    margin-top: 0;
+}
+
+.bodyParent {
+    display: grid;
+    grid-template-columns: 30% 50%;
+    grid-row-gap: 10px;
+    margin-left: 15%;
+}
+
+.bodyParent input {
+    border-radius: 5px;
+}
