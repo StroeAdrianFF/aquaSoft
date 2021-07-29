@@ -1,37 +1,86 @@
 const Employee = require('./models/employee.js'); //import model
 const Project = require('./models/project.js');
+const User = require('./models/user.js');
 
 const MongoClient = require('mongodb').MongoClient;
 const URI = 'mongodb+srv://adrian:adrian@cluster0.2gzfu.mongodb.net/internship?retryWrites=true&w=majority';
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const signUp = async (req, res) => {
+    try {
+        //salt passwords
+        const saltPass = await bcrypt.genSalt(10);
+        const securePass = await bcrypt.hash(req.body.password, saltPass); //hash password
+        const userName = await User.findOne({ username: req.body.username });
+
+        const signedUpUser = new User({
+            username: req.body.username,
+            password: securePass, //set password to hashed password
+            job: req.body.job
+        });
+
+        if (userName !== null) {
+            //if user exists => error
+            return res.status(400).json({ error: 'Un user cu numele respectiv deja exista' });
+        } else {
+            await signedUpUser.save(); //save user in db
+
+            const token = jwt.sign({ username: signedUpUser.username, password: signedUpUser.password }, 'secret-secret', {
+                expiresIn: '1h'
+            });
+            return res.status(200).json({ token });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: error });
+    }
+};
+
+const signIn = async (req, res) => {
+    try {
+        const findByUsername = await User.findOne({ username: req.body.username });
+        if (findByUsername == null) {
+            return res.status(400).json({ error: 'Username incorect!' }); //send message to frontend like this
+        }
+        if (await bcrypt.compare(req.body.password, findByUsername.password)) {
+            const token = jwt.sign({ username: findByUsername.username, password: findByUsername.password }, 'secret-secret', {
+                expiresIn: '1h'
+            }); //secret will go in .env file later
+            return res.status(200).json({ token }); //if password is ok send succes
+        } else {
+            return res.status(403).send('Interzis'); //else send forbidden
+        }
+    } catch (error) {
+        return res.status(500).json({ error: error });
+    }
+};
 
 const orderedEmployees = async (req, res) => {
     try {
         const ordered = await Employee.find({}).sort({ salary: -1 }); //sort every employee by their descending salary
-        res.json(ordered);
+        return res.json(ordered);
     } catch (error) {
-        console.log(`Hopa! Ceva nu merge bine la ordonare: ${error}`);
-        return res.json({ message: 'Error on retrieving' });
+        return res.status(500).json({ error: error });
     }
 };
 
 const firstName = async (req, res) => {
     try {
         const firstName = await Employee.findOne({ name: `${req.params.name}` }); //find 1 employee by name
-        res.json(firstName);
+        return res.json(firstName);
     } catch (error) {
-        console.log(`Hopa! Ceva nu merge bine la nume: ${error}`);
-        return res.json({ message: 'Error on retrieving' });
+        return res.status(500).json({ error: error });
     }
 };
 
 const allProjects = async (req, res) => {
     try {
         const projects = await Project.find({});
-        res.json(projects);
+        return res.json(projects);
     } catch (error) {
-        console.log(`Proiectele nu au putut fi gasite: ${error}`);
-        return res.json({ message: 'Error on returning projects' });
+        return res.status(500).json({ error: error });
     }
 };
 
@@ -54,10 +103,9 @@ const getEmplWithProject = async (req, res) => {
                 }
             ])
             .toArray();
-        res.json(result);
+        return res.json(result);
     } catch (error) {
-        console.log(`Proiectele nu au putut fi gasite: ${error}`);
-        return res.json({ message: 'Error on returning projects for employee' });
+        return res.status(500).json({ error: error });
     }
     client.close();
 };
@@ -73,10 +121,9 @@ const addEmployee = async (req, res) => {
             salary: req.body.salary,
             job_title: req.body.job_title
         }).save();
-        res.json(newEmpl);
+        return res.json(newEmpl);
     } catch (error) {
-        console.log(`Hopa! Ceva nu merge bine la inserare: ${error}`);
-        return res.json({ message: 'Error on insertion' });
+        return res.status(500).json({ error: error });
     }
 };
 
@@ -89,50 +136,45 @@ const addProject = async (req, res) => {
             description: req.body.description,
             project_code: req.body.project_code
         }).save();
-        res.json(newProject);
+        return res.json(newProject);
     } catch (error) {
-        console.log(`Nu s-a putut insera un proiect nou. ${error}`);
-        return res.json({ message: 'Unable to insert new project' });
+        return res.status(500).json({ error: error });
     }
 };
 
 const updateEmpl = async (req, res) => {
     try {
         const empl = await Employee.updateOne({ _id: mongoose.Types.ObjectId(req.params.id) }, req.body); //so we can do the deletion from frontend
-        res.json(empl);
+        return res.json(empl);
     } catch (error) {
-        console.log(`Hopa! Ceva nu merge bine la update: ${error}`);
-        return res.json({ message: 'Error on updating' });
+        return res.status(500).json({ error: error });
     }
 };
 
 const updateProject = async (req, res) => {
     try {
         const project = await Project.updateOne({ _id: mongoose.Types.ObjectId(req.params.id) }, req.body);
-        res.json(project);
+        return res.json(project);
     } catch (error) {
-        console.log(`Nu s-a putut actualiza un proiect. ${error}`);
-        return res.json({ message: 'Unable to update project' });
+        return res.status(500).json({ error: error });
     }
 };
 
 const deleteEmpl = async (req, res) => {
     try {
         await Employee.findByIdAndDelete(req.params.id);
-        res.json({ message: 'Angajat sters!' });
+        return res.json({ message: 'Angajat sters!' });
     } catch (error) {
-        console.log(`Hopa! Ceva nu merge bine la delete: ${error}`);
-        return res.json({ message: 'Error on deletion' });
+        return res.status(500).json({ error: error });
     }
 };
 
 const deleteProject = async (req, res) => {
     try {
         await Project.findByIdAndDelete(req.params.id);
-        res.json({ message: 'Proiect sters!' });
+        return res.json({ message: 'Proiect sters!' });
     } catch (error) {
-        console.log(`Nu s-a putut sterge proiectul. ${error}`);
-        return res.json({ message: 'Unable to delete project' });
+        return res.status(500).json({ error: error });
     }
 };
 
@@ -148,3 +190,6 @@ exports.updateProject = updateProject;
 exports.deleteProject = deleteProject;
 
 exports.getEmplWithProject = getEmplWithProject;
+
+exports.signUp = signUp;
+exports.signIn = signIn;
