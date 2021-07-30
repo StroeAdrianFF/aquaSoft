@@ -14,9 +14,7 @@ function App() {
             <Router>
                 <Provider store={store}>
                     {/* connects the app to the store */}
-                    {localStorage.getItem('user') === null ? (
-                        <AuthPage />
-                    ) : (
+                    {localStorage.getItem('user') ? (
                         <>
                             <NavBar />
                             <Switch>
@@ -28,6 +26,8 @@ function App() {
                                 <Route path='/proiecte' component={SecondPage} />
                             </Switch>
                         </>
+                    ) : (
+                        <AuthPage />
                     )}
                 </Provider>
             </Router>
