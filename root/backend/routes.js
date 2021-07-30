@@ -28,7 +28,7 @@ const signUp = async (req, res) => {
             await signedUpUser.save(); //save user in db
 
             const token = jwt.sign({ username: signedUpUser.username, password: signedUpUser.password }, 'secret', {
-                expiresIn: '1h'
+                expiresIn: '15s'
             });
             return res.status(200).json({ token });
         }
@@ -46,7 +46,7 @@ const signIn = async (req, res) => {
         }
         if (await bcrypt.compare(req.body.password, findByUsername.password)) {
             const token = jwt.sign({ username: findByUsername.username, password: findByUsername.password }, 'secret', {
-                expiresIn: '1h'
+                expiresIn: '15s'
             }); //secret will go in .env file later
             return res.status(200).json({ token }); //if password is ok send succes
         } else {
