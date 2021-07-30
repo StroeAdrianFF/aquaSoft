@@ -15,6 +15,13 @@ const NavBar = () => {
                     <LinkContainer to='/proiecte'>
                         <Nav.Link>Proiecte</Nav.Link>
                     </LinkContainer>
+                    <Nav.Link
+                        onClick={() => {
+                            localStorage.removeItem('user');
+                            window.location.reload();
+                        }}>
+                        Log Out
+                    </Nav.Link>
                 </Nav>
             </Container>
         </Navbar>

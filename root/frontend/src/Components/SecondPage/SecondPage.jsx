@@ -23,7 +23,7 @@ const SecondPage = (props) => {
 
     useEffect(() => {
         props.getProjects();
-    }, [props.getProjects, props]);
+    }, [props.getProjects]);
 
     const addData = (e) => {
         setAddProjectData({ ...addProjectData, [e.target.name]: e.target.value });

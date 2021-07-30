@@ -22,7 +22,7 @@ const MainPage = (props) => {
 
     useEffect(() => {
         props.getEmployees();
-    }, [props.getEmployees, props]);
+    }, [props.getEmployees]);
 
     const addData = (e) => {
         setAddEmplData({ ...addEmplData, [e.target.name]: e.target.value });
