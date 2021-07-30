@@ -2,7 +2,11 @@ import axios from 'axios';
 
 export const getEmployees = () => async (dispatch) => {
     try {
-        const res = await axios.get('http://localhost:5000/ordered');
+        const res = await axios.get('http://localhost:5000/ordered', {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('user')}`
+            }
+        });
 
         dispatch({
             type: 'GET_EMPLOYEES',
