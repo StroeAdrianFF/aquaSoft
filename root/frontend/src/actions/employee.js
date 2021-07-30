@@ -23,7 +23,8 @@ export const addEmployee = (data) => async (dispatch) => {
         await axios.post('http://localhost:5000/insertEmpl', data, {
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('user')}`
             }
         });
         dispatch({
@@ -39,7 +40,8 @@ export const updateEmployee = (data) => async (dispatch) => {
         await axios.put(`http://localhost:5000/updateEmpl/${data._id}`, data, {
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('user')}`
             }
         });
         dispatch({
@@ -52,7 +54,11 @@ export const updateEmployee = (data) => async (dispatch) => {
 
 export const deleteEmployee = (data) => async (dispatch) => {
     try {
-        await axios.delete(`http://localhost:5000/delete/${data._id}`);
+        await axios.delete(`http://localhost:5000/delete/${data._id}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('user')}`
+            }
+        });
         dispatch({
             type: 'DELETE_EMPLOYEE'
         });

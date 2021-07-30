@@ -28,21 +28,21 @@ app.get('/', (req, res) => {
 
 app.get('/ordered', verifyToken, routes.orderedEmployees); //get ordered employees
 app.get('/name/:name', routes.firstName); //get employee by name
-app.get('/projects', routes.allProjects);
+app.get('/projects', verifyToken, routes.allProjects);
 
 app.get('/emplAndProject', routes.getEmplWithProject);
 
-app.post('/insertEmpl', routes.addEmployee);
-app.post('/insertProject', routes.addProject);
+app.post('/insertEmpl', verifyToken, routes.addEmployee);
+app.post('/insertProject', verifyToken, routes.addProject);
 
 app.post('/signUp', routes.signUp);
 app.post('/signIn', routes.signIn);
 
-app.put('/updateEmpl/:id', routes.updateEmpl);
-app.put('/updateProject/:id', routes.updateProject);
+app.put('/updateEmpl/:id', verifyToken, routes.updateEmpl);
+app.put('/updateProject/:id', verifyToken, routes.updateProject);
 
-app.delete('/delete/:id', routes.deleteEmpl);
-app.delete('/deleteProject/:id', routes.deleteProject);
+app.delete('/delete/:id', verifyToken, routes.deleteEmpl);
+app.delete('/deleteProject/:id', verifyToken, routes.deleteProject);
 
 app.listen(port, () => {
     //run server
