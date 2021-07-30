@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 import { signInUser, signUpUser } from '../../actions/user';
 import { Redirect } from 'react-router-dom';
 
-const mapStateToProps = (state) => ({});
-
 const AuthPage = (props) => {
     const [status, setStatus] = useState(false);
     const [user, setUser] = useState({});
@@ -32,7 +30,7 @@ const AuthPage = (props) => {
         passwordRef.current.value = '';
         setTimeout(() => {
             window.location.reload();
-        }, 1500);
+        }, 250);
     };
 
     if (localStorage.getItem('user')) {
