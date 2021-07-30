@@ -16,3 +16,9 @@
 .bodyParent input {
     border-radius: 5px;
 }
+
+.toast {
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+}

@@ -11,23 +11,23 @@ connectToDB(); //connect to db
 
 const port = 5000;
 
-const verifyToken = (req, res, next) => {
+/* const verifyToken = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
-        const decoded = jwt.verify(token, 'secret-secret');
+        const decoded = jwt.verify(token, 'secret');
         req.tokenData = decoded;
         console.log(req.tokenData);
         next();
     } catch (error) {
         return res.status(401).json({ message: 'Session is invalid' });
     }
-};
+}; */
 
 app.get('/', (req, res) => {
     res.send('I was expecting you!');
 });
 
-app.get('/ordered', verifyToken, routes.orderedEmployees); //get ordered employees
+app.get('/ordered', /* verifyToken, */ routes.orderedEmployees); //get ordered employees
 app.get('/name/:name', routes.firstName); //get employee by name
 app.get('/projects', routes.allProjects);
 
