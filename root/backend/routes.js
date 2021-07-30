@@ -27,7 +27,7 @@ const signUp = async (req, res) => {
         } else {
             await signedUpUser.save(); //save user in db
 
-            const token = jwt.sign({ username: signedUpUser.username, password: signedUpUser.password }, 'secret', {
+            const token = jwt.sign({ username: signedUpUser.username, password: signedUpUser.password }, process.env.JWT_SECRET, {
                 expiresIn: '1m'
             });
             return res.status(200).json({ token });
@@ -45,9 +45,13 @@ const signIn = async (req, res) => {
             return res.status(400).json({ error: 'Username incorect!' }); //send message to frontend like this
         }
         if (await bcrypt.compare(req.body.password, findByUsername.password)) {
-            const token = jwt.sign({ username: findByUsername.username, password: findByUsername.password }, 'secret', {
-                expiresIn: '1m'
-            }); //secret will go in .env file later
+            const token = jwt.sign(
+                { username: findByUsername.username, password: findByUsername.password },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: '1m'
+                }
+            ); //secret will go in .env file later
             return res.status(200).json({ token }); //if password is ok send succes
         } else {
             return res.status(403).send('Interzis'); //else send forbidden
